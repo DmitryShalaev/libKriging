@@ -100,6 +100,7 @@ list(APPEND CMAKE_SYSTEM_LIBRARY_PATH ${EXTRA_SYSTEM_LIBRARY_PATH})
 set(DETECT_HDF5 false CACHE BOOL "Disable HDF5 to avoid conflict with armadillo") # prevent issue #40
 add_subdirectory(dependencies/armadillo-code)
 include_directories(SYSTEM dependencies/armadillo-code/include)
+include_directories(SYSTEM dependencies/ensmallen-2.12.1/include)
 include_directories(SYSTEM dependencies/optim/header_only_version)
 
 #------------------------------------------------------
