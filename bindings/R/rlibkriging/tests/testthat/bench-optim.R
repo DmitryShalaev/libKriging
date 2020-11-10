@@ -2,14 +2,18 @@
 
 a=.5
 b=50
-rosenbrock_fun = function(X) (a-X[,1])^2+b*(X[,2]-X[,1]^2)^2
+rosenbrock_fun = function(X) 
+  # (X[,1]-0.5)^2+(X[,2]-0.5)^2 
+  (a-X[,1])^2+b*(X[,2]-X[,1]^2)^2
 # min: rosenbrock_fun(cbind(a,a^2))==0
 
 x=seq(0,1,,21)
 contour(x,x,matrix(rosenbrock_fun(expand.grid(x,x)),nrow=length(x)),nlevels = 50)
 points(a,a^2)
 
-rosenbrock_grad = function(X) cbind(
+rosenbrock_grad = function(X) 
+# cbind(2*X[,1]-1,2*X[,2]-1)  
+cbind(
   -2*(a-X[,1]) + 4*b*(X[,1]^3 - X[,2]*X[,1]),
   2*b*(X[,2] - X[,1]^2)
 )
@@ -35,7 +39,9 @@ for (ix0 in 1:nrow(X0)) {
   x0 = X0[ix0,]
   
   if (abs(rosenbrock_fun(matrix(x0,ncol=2)) - f_optim(x0))>1E-7) stop("Wrong f eval")
+  # f_optim = function(x) rosenbrock_fun(matrix(x,ncol=2))
   if (any(abs(rosenbrock_grad(matrix(x0,ncol=2)) - t(grad_optim(x0)))>1E-7)) stop("Wrong g eval")
+  # grad_optim = function(x) t(rosenbrock_grad(matrix(x0,ncol=2)))
   
   hist_x = NULL
   last_x = NULL
@@ -59,7 +65,7 @@ for (ix0 in 1:nrow(X0)) {
   }
   
   n.f <<- n.g <<- 0
-  o=optim(x0,f,g,method = "L-BFGS-B", control=list(maxit=10)) #,lower = c(0,0),upper=c(1,1))
+  o=optim(x0,f,g,method = "L-BFGS-B", control=list(maxit=9)) #,lower = c(0,0),upper=c(1,1))
   points(o$par[1],o$par[2],col='blue',pch='x')
   text(x=x0[1],y=x0[2],paste0(n.f,",",n.g),col='blue')
   Xn_optimR = rbind(Xn_optimR,o$par)
