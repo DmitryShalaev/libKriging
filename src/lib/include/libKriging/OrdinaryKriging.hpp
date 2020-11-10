@@ -40,7 +40,13 @@ class OrdinaryKriging {
   const arma::vec& theta() const { return m_theta; };
   const double& sigma2() const { return m_sigma2; };
 
- private:
+  const arma::mat& funs() const { return fun_calls; }; // TO BE DELETED
+  const arma::mat& grads() const { return grad_calls; }; // TO BE DELETED
+  
+ public:
+   arma::mat fun_calls;// TO BE DELETED
+   arma::mat grad_calls;// TO BE DELETED
+private:
   arma::mat m_X;
   arma::rowvec m_centerX;
   arma::rowvec m_scaleX;
@@ -69,10 +75,10 @@ class OrdinaryKriging {
 
  public:
   struct OKModel {
-    arma::mat T;
-    arma::mat M;
-    arma::colvec z;
-    arma::colvec beta;
+    arma::mat& T;
+    arma::mat& M;
+    arma::colvec& z;
+    arma::colvec& beta;
   };
 
   double logLikelihood(const arma::vec& _theta, arma::vec* grad_out, OrdinaryKriging::OKModel* okm_data) const;
@@ -89,7 +95,8 @@ class OrdinaryKriging {
    * @param optim_method is an optimizer name from OptimLib, or 'none' to keep parameters unchanged
    * @param optim_objective is 'loo' or 'loglik'. Ignored if optim_method=='none'.
    */
-  LIBKRIGING_EXPORT void fit(const arma::colvec& y,
+  LIBKRIGING_EXPORT void fit(const Parameters& parameters,
+                             const arma::colvec& y,
                              const arma::mat& X,
                              const RegressionModel& regmodel = RegressionModel::Constant,
                              bool normalize = false);  //,
