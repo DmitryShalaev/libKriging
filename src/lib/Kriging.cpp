@@ -9,7 +9,10 @@
 //#include "libKriging/Bench.hpp"
 #include "libKriging/Trend.hpp"
 #include "libKriging/Optim.hpp"
-#include "libKriging/CacheFunction.hpp"
+
+//#include "libKriging/CacheFunction.hpp"
+#define CacheFunction  // Disable Cache without changing code 
+
 #include "libKriging/Covariance.hpp"
 #include "libKriging/KrigingException.hpp"
 #include "libKriging/LinearAlgebra.hpp"
