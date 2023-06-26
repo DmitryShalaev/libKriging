@@ -20,6 +20,7 @@ export EXTRA_SYSTEM_LIBRARY_PATH=${HOME}/Miniconda3/Library/lib
 # Windows + Shared : OK
 # Windows + Static : OK
 MAKE_SHARED_LIBS=on
+export HDF5_USE_STATIC_LIBRARIES=on
 
 BUILD_TEST=false \
     CC=$(R CMD config CC) \
