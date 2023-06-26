@@ -14,16 +14,16 @@ if [[ "${ENABLE_COVERAGE}" == "on" ]]; then
     travis_terminate 1
 fi
 
-#if [ ! -f "$HOME/Miniconda3/condabin/conda.bat" ]; then
+if [ ! -f "$HOME/Miniconda3/condabin/conda.bat" ]; then
 	curl -s -o ${HOME}/Downloads/Miniconda3-latest-Windows-x86_64.exe https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
 	pushd ${HOME}/Downloads 
 	"${BASEDIR}"/install_conda.bat
 	popd
-#fi
+fi
 $HOME/Miniconda3/condabin/conda.bat update -y -n base -c defaults conda
 
 # https://anaconda.org/search?q=blas
-$HOME/Miniconda3/condabin/conda.bat install -y --quiet -n base -c conda-forge openblas liblapack hdf5==1.12.1
+$HOME/Miniconda3/condabin/conda.bat install -y --quiet -n base -c conda-forge openblas liblapack hdf5==1.12.1 #hdf5<=1.12.0 will cause crash
 # $HOME/Miniconda3/condabin/conda.bat install -c conda-forge fortran-compiler
 
 # https://chocolatey.org/docs/commands-install
