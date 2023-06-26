@@ -14,13 +14,12 @@ if [[ "${ENABLE_COVERAGE}" == "on" ]]; then
     travis_terminate 1
 fi
 
-if [ ! -f "$HOME/Miniconda3/condabin/conda.bat" ]; then
+#if [ ! -f "$HOME/Miniconda3/condabin/conda.bat" ]; then
 	curl -s -o ${HOME}/Downloads/Miniconda3-latest-Windows-x86_64.exe https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
 	pushd ${HOME}/Downloads 
 	"${BASEDIR}"/install_conda.bat
 	popd
-fi
-$HOME/Miniconda3/condabin/conda.bat update --all
+#fi
 $HOME/Miniconda3/condabin/conda.bat update -y -n base -c defaults conda
 
 # https://anaconda.org/search?q=blas
