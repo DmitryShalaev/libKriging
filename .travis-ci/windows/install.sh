@@ -20,6 +20,7 @@ if [ ! -f "$HOME/Miniconda3/condabin/conda.bat" ]; then
 	"${BASEDIR}"/install_conda.bat
 	popd
 fi
+$HOME/Miniconda3/condabin/conda.bat update -all
 $HOME/Miniconda3/condabin/conda.bat update -y -n base -c defaults conda
 
 # https://anaconda.org/search?q=blas
