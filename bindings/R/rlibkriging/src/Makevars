@@ -31,10 +31,11 @@ EXTERNAL_LIBS=$(shell ../../tools/ExternalLibsExtractor.sh)
 
 CXX_STD = CXX17
 
-#PKG_CFLAGS=
 PKG_CPPFLAGS=-I"${LIBKRIGING_PATH}"/include -include "libKriging/utils/lkalloc.hpp" -DARMA_ALIEN_MEM_ALLOC_FUNCTION=lkalloc::malloc -DARMA_ALIEN_MEM_FREE_FUNCTION=lkalloc::free
+# https://stat.ethz.ch/pipermail/r-package-devel/2018q3/003033.html
+PKG_CXXFLAGS=$(SHLIB_OPENMP_CXXFLAGS)
 # https://stackoverflow.com/questions/49154506/understanding-makevars-for-linking-to-external-c-library-in-r-package
-PKG_LIBS=-L"${LIBKRIGING_PATH}"/lib -lKriging -larmadillo -llbfgsb $(EXTRA_PKG_LIBS) $(EXTERNAL_LIBS)
+PKG_LIBS=$(SHLIB_OPENMP_CXXFLAGS) -L"${LIBKRIGING_PATH}"/lib -lKriging -larmadillo -llbfgsb $(EXTRA_PKG_LIBS) $(EXTERNAL_LIBS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
 MAKEFLAGS=-j$(nproc)
 
 null      :=
