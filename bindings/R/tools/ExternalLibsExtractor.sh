@@ -12,7 +12,7 @@ BASEDIR=$(cd "$BASEDIR" && pwd -P)
 
 TMPDIR=$(mktemp -d)
 ARMA_LIBS=$(cmake -DLIBKRIGING_PATH="${LIBKRIGING_PATH}" -B "${TMPDIR}" "${BASEDIR}")## | sed -n -r -e 's/^-- EXTERNAL_LIBS=(.*)$/\1/p')
-echo ARMA_LIBS
+echo ${ARMA_LIBS}
 ## avoid *-NOTFOUND to be displayed:
 ##ARMA_LIBS=$(echo "$ARMA_LIBS" | sed -e 's/[^ ]*-NOTFOUND[^ ]*//g')
 
