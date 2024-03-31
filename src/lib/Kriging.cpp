@@ -624,9 +624,8 @@ LIBKRIGING_EXPORT std::tuple<arma::vec, arma::vec> Kriging::leaveOneOutVec(const
   arma::colvec z;
   Kriging::OKModel okm_data{T, M, z, m_beta, false, m_sigma2, false};
 
-  double loo = -1;
   arma::mat yhat = arma::mat(m_y.n_elem, 2);
-  loo = _leaveOneOut(_theta, nullptr, &yhat, &okm_data, nullptr);
+  _leaveOneOut(_theta, nullptr, &yhat, &okm_data, nullptr);
 
   return std::make_tuple(std::move(yhat.col(0)), std::move(yhat.col(1) * std::sqrt(m_sigma2)));
 }
